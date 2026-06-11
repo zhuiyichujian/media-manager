@@ -2,7 +2,7 @@
 
 namespace Encore\Admin\Media;
 
-use Encore\Admin\Admin;
+use Ladmin\Admin;
 
 trait BootExtension
 {

@@ -2,8 +2,8 @@
 
 namespace Encore\Admin\Media;
 
-use Encore\Admin\Exception\Handler;
-use Encore\Admin\Extension;
+use Ladmin\Exception\Handler;
+use Ladmin\Extension;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;

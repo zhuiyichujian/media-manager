@@ -13,10 +13,10 @@
     ],
     "require": {
         "php": ">=8.0.0",
-        "encore/laravel-admin": "~3"
+        "php-panel/laravel-admin": "~3"
     },
     "require-dev": {
-        "phpunit/phpunit": "~6.0"
+
     },
     "autoload": {
         "psr-4": {

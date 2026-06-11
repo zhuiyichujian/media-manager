@@ -7,7 +7,7 @@ use Encore\Admin\Extension;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
-use League\Flysystem\Adapter\Local;
+use League\Flysystem\Local\LocalFilesystemAdapter as Local;
 
 /**
  * Class MediaManager.
@@ -69,8 +69,7 @@ class MediaManager extends Extension
         $disk = static::config('disk');
 
         $this->storage = Storage::disk($disk);
-
-        if (!$this->storage->getDriver()->getAdapter() instanceof Local) {
+        if (!$this->storage->getAdapter() instanceof Local) {
             Handler::error('Error', '[laravel-admin-ext/media-manager] only works for local storage.');
         }
     }
@@ -103,7 +102,7 @@ class MediaManager extends Extension
      */
     protected function getFullPath($path)
     {
-        $fullPath = $this->storage->getDriver()->getAdapter()->applyPathPrefix($path);
+        $fullPath = $this->storage->path($path);
         if (strstr($fullPath, '..')) {
             throw new \Exception('Incorrect path');
         }
@@ -265,8 +264,7 @@ class MediaManager extends Extension
     {
         switch ($this->detectFileType($file)) {
             case 'image':
-
-                if ($this->storage->getDriver()->getConfig()->has('url')) {
+                if (\Illuminate\Support\Arr::has($this->storage->getConfig(), 'url')) {
                     $url = $this->storage->url($file);
                     $preview = "<span class=\"file-icon has-img\"><img src=\"$url\" alt=\"Attachment\"></span>";
                 } else {
